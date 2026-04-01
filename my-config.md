@@ -13,6 +13,17 @@
     "command": "bash /Users/YOUR_USERNAME/.claude/statusline-command.sh"
   },
   "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude 需要你的確認！\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": "",
@@ -31,6 +42,7 @@
 | 設定 | 說明 |
 |------|------|
 | `statusLine` | 自訂狀態列，執行外部腳本輸出內容 |
+| `hooks.Notification` | Claude 需要使用者確認時觸發 macOS 通知 |
 | `hooks.Stop` | 每次 Claude 回應結束時觸發 macOS 通知 |
 
 > 注意：`statusLine.command` 裡的路徑需改成你自己的使用者目錄。
