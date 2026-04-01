@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Claude 需要你的確認！\" with title \"Claude Code\"'"
+            "command": "osascript -e 'display notification \"Your approval is needed!\" with title \"Claude Code\"'"
           }
         ]
       }
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"任務完成！\" with title \"Claude Code\"'"
+            "command": "osascript -e 'display notification \"Task completed!\" with title \"Claude Code\"'"
           }
         ]
       }
