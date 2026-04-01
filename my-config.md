@@ -65,6 +65,7 @@ Context [████░░░░░░] 34% | Usage [█░░░░░░░�
 - Always reply in Traditional Chinese (繁體中文).
 - Always write git commit messages in English.
 - After modifying any code, automatically suggest a git commit message in English based on the changes made.
+- When creating git commits, do NOT add "Co-Authored-By: Claude" or any Claude-related information to the commit message.
 ```
 
 ---
