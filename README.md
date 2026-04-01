@@ -2,6 +2,8 @@
 
 > 常用操作速查表。完整文件請見 [官方文件](https://docs.anthropic.com/en/docs/claude-code)
 
+個人設定說明請見 [my-config.md](my-config.md)。
+
 ---
 
 ## 啟動方式
