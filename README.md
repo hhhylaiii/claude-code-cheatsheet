@@ -46,7 +46,7 @@ claude -r "session-name"      # 恢復指定 session
 
 ---
 
-## Slash 指令
+## 內建 Slash 指令
 
 | 指令 | 說明 |
 |------|------|
@@ -62,6 +62,105 @@ claude -r "session-name"      # 恢復指定 session
 | `/terminal-setup` | 設定終端機（如啟用 Shift+Enter 換行）|
 | `/commit` | 建立 git commit |
 | `/compact` | 壓縮對話歷史以節省 context |
+
+---
+
+## ECC 指令（everything-claude-code）
+
+> 透過 `./install.sh --profile full` 安裝。需設定 `ECC_HOOK_PROFILE=standard`。
+
+### 核心工作流程
+
+| 指令 | 說明 |
+|------|------|
+| `/plan "任務"` | 重申需求、評估風險、產生逐步實作計畫（等待確認後才動手）|
+| `/tdd` | TDD 工作流程（先寫測試再實作）|
+| `/code-review` | 審查本地未 commit 的變更，或傳入 PR 號碼審查 GitHub PR |
+| `/build-fix` | 修復 build 錯誤 |
+| `/e2e` | 產生並執行 E2E 測試 |
+| `/verify` | 驗證迴圈（確認實作符合需求）|
+| `/quality-gate` | 品質門檻檢查 |
+| `/refactor-clean` | 重構清理 |
+| `/santa-loop` | 雙重對立審查收斂迴圈（兩個 reviewer 都核准才能出貨）|
+
+### 語言別 Build / Review / Test
+
+| 指令 | 說明 |
+|------|------|
+| `/cpp-build` | 修復 C++ build 錯誤與 CMake 問題 |
+| `/cpp-review` | C++ 程式碼審查（記憶體安全、現代 C++、並發）|
+| `/cpp-test` | C++ TDD 工作流程（GoogleTest）|
+| `/go-build` | 修復 Go build 錯誤與 vet 警告 |
+| `/go-review` | Go 程式碼審查（慣用模式、並發安全、錯誤處理）|
+| `/go-test` | Go TDD 工作流程（table-driven tests）|
+| `/kotlin-build` | 修復 Kotlin/Gradle build 錯誤 |
+| `/kotlin-review` | Kotlin 程式碼審查（null 安全、coroutine）|
+| `/kotlin-test` | Kotlin TDD 工作流程（Kotest）|
+| `/rust-build` | 修復 Rust borrow checker 與依賴問題 |
+| `/rust-review` | Rust 程式碼審查（ownership、lifetimes、unsafe）|
+| `/rust-test` | Rust TDD 工作流程（cargo-llvm-cov）|
+| `/python-review` | Python 程式碼審查（PEP 8、type hints、安全性）|
+| `/gradle-build` | 修復 Android/KMP Gradle build 錯誤 |
+
+### 規劃與 PR
+
+| 指令 | 說明 |
+|------|------|
+| `/prp-plan "功能"` | 詳細功能實作計畫（含 codebase 分析與模式萃取）|
+| `/prp-implement` | 執行實作計畫（帶驗證迴圈）|
+| `/prp-pr` | 從當前分支建立 GitHub PR（自動 push 與分析）|
+| `/prp-prd "功能"` | 互動式產品需求文件產生器 |
+| `/prp-commit "描述"` | 用自然語言描述要 commit 什麼（自動選擇檔案）|
+
+### Session 管理
+
+| 指令 | 說明 |
+|------|------|
+| `/save-session` | 儲存目前 session 狀態到 `~/.claude/session-data/` |
+| `/resume-session` | 載入最近一次 session 並恢復工作 |
+| `/sessions` | 管理 session 歷史、別名與元資料 |
+| `/aside "問題"` | 快速問旁支問題，不中斷目前任務上下文 |
+
+### Learning / Instincts
+
+| 指令 | 說明 |
+|------|------|
+| `/learn` | 從本次 session 萃取可重用模式 |
+| `/learn-eval` | 萃取模式前先自我評估品質，決定存到全域或專案 |
+| `/instinct-status` | 顯示已學習的 instincts（專案 + 全域）與信心分數 |
+| `/instinct-export` | 匯出 instincts 到檔案 |
+| `/instinct-import` | 從檔案或 URL 匯入 instincts |
+| `/promote` | 將專案 instincts 提升為全域 |
+| `/evolve` | 分析 instincts 並建議/產生進化結構 |
+| `/prune` | 刪除 30 天以上未提升的待定 instincts |
+| `/projects` | 列出所有專案與其 instinct 統計 |
+
+### Skills 管理
+
+| 指令 | 說明 |
+|------|------|
+| `/skill-create` | 從本地 git 歷史萃取模式並產生 SKILL.md |
+| `/skill-health` | 顯示 skill 組合健康儀表板 |
+
+### 多 Agent 工作流程
+
+| 指令 | 說明 |
+|------|------|
+| `/multi-plan` | 多 agent 任務規劃 |
+| `/multi-backend` | 多 agent 後端實作 |
+| `/multi-frontend` | 多 agent 前端實作 |
+| `/multi-execute` | 多 agent 執行 |
+| `/multi-workflow` | 完整多 agent 工作流程 |
+
+### 工具類
+
+| 指令 | 說明 |
+|------|------|
+| `/docs` | 查詢文件（context7 整合）|
+| `/setup-pm` | 設定偏好的 package manager（npm/pnpm/yarn/bun）|
+| `/rules-distill` | 精煉並更新規則檔案 |
+| `/prompt-optimize` | 優化提示詞品質 |
+| `/update-docs` | 更新文件 |
 
 ---
 
