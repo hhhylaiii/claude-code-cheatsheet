@@ -283,3 +283,60 @@ Edit `~/.claude/keybindings.json`:
 - To enable `Option` key shortcuts on macOS, set Option as the Meta key in your terminal:
   - **iTerm2**: Settings → Profiles → Keys → Left Option = "Esc+"
   - **Terminal.app**: Settings → Profiles → Keyboard → check "Use Option as Meta Key"
+
+---
+
+## Spec Kit: Initialization (Init Project)
+
+Getting started with Spec Kit in a new or existing project:
+
+1. **Install Specify CLI (Global)**
+   ```bash
+   uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+   ```
+2. **Initialize in Project Directory**
+   ```bash
+   specify init . --here --ai claude
+   ```
+*(Note: If integrating into an existing project, this will merge with existing templates without deleting your source code)*
+
+---
+
+## Spec Kit: Constitution Template
+
+After initialization, paste the following as your **first** message to Claude to establish a solid guardrail for AI development:
+
+**Copy & Paste this to Claude:**
+```text
+/speckit.constitution 
+1. Core Spirit: Focus on Minimum Viable Product (MVP). Code MUST be high-quality, testable, and absolutely NO overdesign.
+2. Complete Implementation: Provide fully working and executable code. NEVER use placeholders like TODO or `pass`.
+3. Respect Architecture: Strictly follow the project's existing directory structure, patterns, and conventions. Do not introduce new frameworks or extra packages wildly.
+4. Robustness & Security: Use Type Hints consistently. NEVER hardcode any sensible data or API keys. Always catch exceptions properly and return reasonable HTTP Status codes when handling external APIs.
+5. Test Synchronization: Any modification to business logic MUST be accompanied by updates or additions to the corresponding Pytest cases.
+6. Naming & Comments: Variables MUST be named in clear English. Critical logic comments and API Docstrings MUST be kept concise and written in English.
+```
+
+---
+
+## Spec Kit: Core 5-Step Workflow
+
+As the product manager, use these commands step-by-step for new features or bug fixes:
+
+| Step | Usage & Example |
+| --- | --- |
+| 1. **`/speckit-constitution`** | Establish general principles (use the template above). |
+| 2. **`/speckit-specify`** | **Define Requirements**: Explain business logic without deep technical details. |
+| 3. **`/speckit-plan`** | **Generate Tech Plan**: AI reviews the spec and lists files to modify and design choices. |
+| 4. **`/speckit-tasks`** | **Create Task List**: AI divides the plan into actionable chunks (Task 1, 2, 3...). |
+| 5. **`/speckit-implement`** | **Execute Implementation**: AI starts coding and verifying the changes. |
+
+---
+
+## Spec Kit: Enhancement Skills
+
+Use these optional skills to reduce AI hallucination risks on complex refactors:
+
+* **`/speckit-clarify`** (use after `specify`, before `plan`): AI asks you structured questions to clarify edge cases and ambiguities.
+* **`/speckit-checklist`** (use after `plan`): AI generates a QA checklist based on the agreed architecture.
+* **`/speckit-analyze`** (use after `tasks`, before `implement`): AI verifies if the generated tasks fully cover the initial specify requirements.
