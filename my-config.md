@@ -1,6 +1,6 @@
 # My Claude Code Config
 
-> Last updated: 2026-04-12
+> Last updated: 2026-04-22
 
 ---
 
@@ -70,6 +70,45 @@ Global behavior instructions applied to all projects:
 - When creating PR descriptions, do NOT include "🤖 Generated with Claude Code" or any Claude-related attribution.
 - Always write code comments in English.
 ```
+
+---
+
+## Tool Routing: Gemini CLI
+
+> Last updated: 2026-04-22
+
+Gemini CLI (`gemini`) is installed locally and used as a lightweight research assistant to offload simple queries from Claude.
+
+### Installation
+
+```bash
+# Install Gemini CLI (requires Node.js)
+npm install -g @google/gemini-cli
+
+# Verify
+gemini --version
+```
+
+### Usage (non-interactive / headless)
+
+```bash
+gemini -p "your query" -o text
+```
+
+### Routing Rule (in `~/.claude/CLAUDE.md`)
+
+| Task type | Handler |
+|---|---|
+| Web search, fact lookup | Gemini CLI |
+| Library / API docs | Gemini CLI |
+| Version numbers, changelogs | Gemini CLI |
+| Quick syntax / usage examples | Gemini CLI |
+| Writing or editing code | Claude |
+| Planning / architecture | Claude |
+| Debugging, multi-file analysis | Claude |
+| Complex reasoning | Claude |
+
+**Fallback:** If `gemini` returns an error (quota exceeded, network failure), Claude handles the task directly.
 
 ---
 
