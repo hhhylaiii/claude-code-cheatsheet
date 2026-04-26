@@ -1,6 +1,6 @@
 # My Claude Code Config
 
-> Last updated: 2026-04-22
+> Last updated: 2026-04-26
 
 ---
 
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Your approval is needed!\" with title \"Claude Code\"'"
+            "command": "node \"/Users/YOUR_USERNAME/.claude/scripts/hooks/notification-permission-filter.js\""
           }
         ]
       }
@@ -28,13 +28,32 @@
 }
 ```
 
-> Note: Replace `YOUR_USERNAME` in `statusLine.command` with your actual username.
-> The `Stop` notification is now handled by ECC's `stop:desktop-notify` hook, which includes a task summary.
+> Note: Replace `YOUR_USERNAME` with your actual username.
+> The `Stop` notification is handled by ECC's `stop:desktop-notify` hook (shows task summary).
+> The `Notification` hook uses a filter script to avoid false positives — see below.
 
 | Setting | Description |
 |---------|-------------|
 | `statusLine` | Custom status line — runs an external script and displays its output |
-| `hooks.Notification` | Triggers a macOS notification when Claude needs user approval |
+| `hooks.Notification` | Filters notification payloads and only triggers a macOS alert for actual permission requests |
+
+---
+
+## `~/.claude/scripts/hooks/notification-permission-filter.js`
+
+> Last updated: 2026-04-26
+
+The `Notification` event fires for both idle (CC waiting for input) and actual permission requests. Without filtering, every response completion triggers a misleading "Your approval is needed!" alert.
+
+This script parses the notification payload and only shows a macOS notification when approval is genuinely required.
+
+### Filter logic
+
+1. If `type` is `"idle"` / `"waiting"` / `"complete"` → skip (ECC's `stop:desktop-notify` handles completion alerts)
+2. If `type` is `"permission"` / `"approval"` → notify
+3. Otherwise → keyword scan for `permission`, `approve`, `bash`, `tool use`, etc.
+
+Full script: [`notification-permission-filter.js`](notification-permission-filter.js)
 
 ---
 
@@ -75,7 +94,7 @@ Global behavior instructions applied to all projects:
 
 ## Tool Routing: Gemini CLI
 
-> Last updated: 2026-04-22
+> Last updated: 2026-04-26
 
 Gemini CLI (`gemini`) is installed locally and used as a lightweight research assistant to offload simple queries from Claude.
 
